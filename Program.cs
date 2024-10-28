@@ -6,19 +6,15 @@ using Yu_Gi_Oh.CardTranslator.Services;
 
 namespace Yu_Gi_Oh.CardTranslator;
 
-class Program
+static class Program
 {
     static async Task Main(string[] args)
     {
-        int maxDegreeOfParallelism = 1;
+        int maxDegreeOfParallelism = 8;
         SemaphoreSlim semaphore = new(maxDegreeOfParallelism);
         List<Card> cards = new();
 
-        var a = GetNames().Distinct().Select(x =>
-        {
-            if (x.Contains("#")) x = x.Replace("#", "");
-            return x;
-        }).ToList();
+        var a = GetNames().Distinct().Select(x => x.Replace("#", "")).ToList();
 
         var tasks = a.Select(async item =>
         {
@@ -39,18 +35,14 @@ class Program
 
         await Task.WhenAll(tasks);
 
+        Console.WriteLine("ГатовА");
         Console.ReadKey();
     }
 
     static List<string> GetNames()
     {
         var rawCardsNames = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "cards.txt").ToList();
-        var CardsNames = rawCardsNames.Select(x =>
-        {
-            x = x.Substring(3, x.Length - 5);
-            var c = Regex.Replace(x, @".*\|", "");
-            return c;
-        }).ToList();
+        var CardsNames = rawCardsNames.Select(x => x.Trim()).ToList();
         return CardsNames;
     }
 }
