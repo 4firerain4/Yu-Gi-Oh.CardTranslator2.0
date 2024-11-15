@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Emgu.CV" Version="4.9.0.5494" />
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.9.0.5494" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
     <PackageReference Include="LibreTranslate.Client.Net" Version="1.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="OpenSlideSharp.OpenCVExtensions" Version="1.1.2" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
   </ItemGroup>
 
 </Project>
