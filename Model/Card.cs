@@ -6,8 +6,8 @@ namespace Yu_Gi_Oh.CardTranslator.Model
         public string Name { get; set; }
         public string Code { get; set; }
         public string Type { get; set; }
-        public string Attribute { get; set;}
         public string Types { get; set;}
+        public string Attribute { get; set;}
         public string Level { get; set;}
         public string ATK { get; set;}
         public string DEF { get; set;}

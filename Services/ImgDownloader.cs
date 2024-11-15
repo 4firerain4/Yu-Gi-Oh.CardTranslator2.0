@@ -1,21 +1,37 @@
 using Yu_Gi_Oh.CardTranslator.Model;
 
-namespace Yu_Gi_Oh.CardTranslator.DAL
+namespace Yu_Gi_Oh.CardTranslator.Services
 {
     public static class ImgDownloader
     {
-        public static readonly string CacheDir = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string DataDir = CacheDir + @"Cache\Data"; //Путь к папке Cache в директории программы
+        public static readonly string CacheDir = AppDomain.CurrentDomain.BaseDirectory + @"/Cache";
+        public static readonly string _savePath = CacheDir + @"/SavedImages/";
         public static readonly HttpClient _client = new();
-        public async static Task DoSome(Card card)
+        public async static Task Download(Card card)
         {
-            string url = "https://images.ygoprodeck.com/images/cards/";
-            string savePath = CacheDir + @"\Cache\SavedImages\";
-            using var request = new HttpRequestMessage(HttpMethod.Get, url + card.Code + ".jpg");
-            using var response = await _client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            if (!CheckFile(card))
+            {
+                string url = "https://images.ygoprodeck.com/images/cards/";
 
-            await File.WriteAllBytesAsync(savePath + card.Code + ".jpg", await response.Content.ReadAsByteArrayAsync());
+                using var request = new HttpRequestMessage(HttpMethod.Get, url + card.Code + ".jpg");
+                using var response = await _client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+
+                await File.WriteAllBytesAsync(_savePath + card.Code + ".jpg", await response.Content.ReadAsByteArrayAsync());
+            }
+        }
+
+        private static bool CheckFile(Card card)
+        {
+            if (!Directory.Exists(CacheDir))
+            {
+                Directory.CreateDirectory(_savePath);
+                return false;
+            }
+            if (!File.Exists(_savePath + $"{card.Code}.jpg"))
+                return false;
+        
+            return true;
         }
     }
 }
