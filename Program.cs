@@ -18,14 +18,16 @@ static class Program
         }
         else
         {
-            //await DataTranslator.Translate();
+            await DataTranslator.Translate();
             cards = await DataPorcessor.ReadDataAsync();
         }
 
-        foreach (var card in cards)
-        {
-            CardCleaner.Clean(card);
-        }
+        // foreach (var card in cards)
+        // {
+        //     CardCleaner.Clean(card);
+        // }
+
+        await CardTextManager.DrawText(cards);
 
         Console.ReadKey();
     }
