@@ -2,12 +2,12 @@ using Yu_Gi_Oh.CardTranslator.Model;
 
 namespace Yu_Gi_Oh.CardTranslator.DAL
 {
-    public class DataPorcessor
+    static public class DataPorcessor
     {
         public static readonly string CacheDir = AppDomain.CurrentDomain.BaseDirectory + "/Cache";
         public static void WriteData(List<Card> data)
         {
-            var query = data.Select(x => $"{x.Code} \t {x.Name} \t {x.TranslatedName} \t {x.Type} \t {x.Types} \t {x.TranslatedTypes} \t {x.ATK} \t {x.DEF} \t {x.Attribute} \t {x.Level} \t {x.Text} \t {x.TranslatedText} ");
+            var query = data.Select(x => $"{x.Code} \t {x.Name} \t {x.TranslatedName} \t {x.Type} \t {x.Types} \t {x.TranslatedTypes} \t {x.ATK} \t {x.DEF} \t {x.Attribute} \t {x.Level} \t {x.Text} \t {x.TranslatedText}");
 
             File.WriteAllLines(CacheDir + "/data.csv", query);
         }

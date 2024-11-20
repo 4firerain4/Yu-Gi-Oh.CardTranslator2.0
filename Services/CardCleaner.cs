@@ -7,7 +7,7 @@ using Yu_Gi_Oh.CardTranslator.Model;
 
 namespace Yu_Gi_Oh.CardTranslator.Services
 {
-    public class CardCleaner
+    static public class CardCleaner
     {
         public static readonly string CacheDir = AppDomain.CurrentDomain.BaseDirectory + "Cache";
         public static void Clean(Card card)
